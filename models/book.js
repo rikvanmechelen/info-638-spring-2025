@@ -1,5 +1,5 @@
 const books = [
-  {title: "Leviathan Wakes", publishingYear: 2011},
+  {title: "Leviathan Wakes", publishingYear: 2011, authorIds: ["0","1"]},
   {title: "Caliban’s War", publishingYear: 2012}
 ];
 
@@ -18,6 +18,9 @@ exports.update = (book) => {
 }
 
 exports.upsert = (book) => {
+  if (book.authorIds && ! Array.isArray(book.authorIds)) {
+    book.authorIds = [book.authorIds];
+  }
   if (book.id) {
     exports.update(book);
   } else {

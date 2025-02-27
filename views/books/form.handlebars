@@ -15,5 +15,16 @@
     <label for="publishing_year">Publishing year</label>
     <input type="number" step="1" placeholder="2000" id="publishing_year" name="publishingYear" {{#if book}}value="{{book.publishingYear}}"{{/if}}>
   </div>
+    <div class="mb-3">
+    <label for="authorIds">Authors</label>
+    <select name="authorIds" multiple id="authorIds">
+      <option disabled value>-- select Author --</option>
+      {{#each authors}}
+        <option value="{{@index}}" {{#if (and @root.book (in @root.book.authorIds @index))}}selected{{/if}}>
+          {{this.firstName}} {{this.lastName}}
+        </option>
+      {{/each}}
+    </select>
+  </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
