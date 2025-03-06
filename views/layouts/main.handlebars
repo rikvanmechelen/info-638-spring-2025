@@ -4,6 +4,11 @@
     <title>{{title}}</title>
   </head>
   <body>
+    {{#if flash}}
+      <div>
+        <strong>{{flash.intro}}</strong> {{{flash.message}}}
+      </div>
+    {{/if}}
      <nav>
       <ul>
         <li><a href="/">BookedIn home</a></li>
