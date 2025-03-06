@@ -28,6 +28,7 @@ const expressSession = require('express-session')
 const indexRouter = require('./routes/index');
 const authorsRouter = require('./routes/authors');
 const booksRouter = require('./routes/books');
+const usersRouter = require('./routes/users');
 
 const app = express();
 const port = 3000;
@@ -49,12 +50,18 @@ app.use((req, res, next) => {
   next()
 })
 
+app.use((req, res, next) => {
+  res.locals.currentUser = req.session.currentUser
+  next()
+})
+
 
 
 // Application logic related
 app.use('/', indexRouter);
 app.use('/authors', authorsRouter);
 app.use('/books', booksRouter);
+app.use('/users', usersRouter);
 
 // custom 404 page
 app.use((req, res) => {

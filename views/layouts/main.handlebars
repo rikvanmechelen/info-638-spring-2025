@@ -14,6 +14,17 @@
         <li><a href="/">BookedIn home</a></li>
         <li><a href="/authors">Authors</a></li>
         <li><a href="/books">books</a></li>
+        {{#if currentUser}}
+          Welcome {{currentUser.name}}
+          <li>
+            <form action="/users/logout" role="form" method="post">
+              <button type="submit" class="btn">Logout</button>
+            </form>
+          </li>
+        {{else}}
+          <li><a href="/users/register">register</a></li>
+          <li><a href="/users/login">login</a></li>
+        {{/if}}
       </ul>
     </nav>
     {{{body}}}
