@@ -18,6 +18,7 @@
           Welcome {{currentUser.name}}
           <li>
             <form action="/users/logout" role="form" method="post">
+              <input type="hidden" name="_csrf" value="{{_csrfToken}}">
               <button type="submit" class="btn">Logout</button>
             </form>
           </li>
