@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
+const helpers = require('./helpers')
+
 const Author = require('../models/author');
 
 router.get('/', function(req, res, next) {
@@ -9,10 +11,16 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/form', async (req, res, next) => {
+  if (helpers.ForceLoggedInUser(req, res)) {
+      return
+  }
   res.render('authors/form', { title: 'BookedIn || Authors' });
 });
 
 router.post('/upsert', async (req, res, next) => {
+  if (helpers.ForceLoggedInUser(req, res)) {
+    return
+  }
   console.log('body: ' + JSON.stringify(req.body))
   Author.upsert(req.body);
   let createdOrupdated = req.body.id ? 'updated' : 'created';
@@ -25,6 +33,9 @@ router.post('/upsert', async (req, res, next) => {
 });
 
 router.get('/edit', async (req, res, next) => {
+  if (helpers.ForceLoggedInUser(req, res)) {
+    return
+  }
   let authorIndex = req.query.id;
   let author = Author.get(authorIndex);
   res.render('authors/form', { title: 'BookedIn || Authors', author: author, authorIndex: authorIndex });

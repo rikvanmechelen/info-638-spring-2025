@@ -11,3 +11,16 @@ exports.isLoggedIn = (req, res) => {
   return false;
 }
 
+exports.ForceLoggedInUser = (req, res) => {
+  if (req.session.currentUser) {
+    return false;
+  }
+  req.session.flash = {
+    type: 'info',
+    intro: 'Error!',
+    message: 'You have to be logged in for this behavior',
+  };
+  res.redirect(302, '/');
+  return true;
+}
+
