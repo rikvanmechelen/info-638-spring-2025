@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require('path');
 
 const { credentials } = require('./config')
 const handlebars = require('express-handlebars').create({
@@ -66,6 +67,8 @@ app.use((req, res, next) => {
   next()
 })
 
+//template setup
+app.use('/bootstrap', express.static(path.join(__dirname, 'node_modules/bootstrap/dist')))
 
 
 // Application logic related
