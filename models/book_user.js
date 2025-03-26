@@ -18,7 +18,7 @@ exports.get = (bookId, userEmail) => {
 }
 
 exports.allForUser = (userEmail) => {
-  return booksUsers.find((bu) => {
+  return booksUsers.filter((bu) => {
     return bu.userEmail === userEmail;
   })
 }

@@ -31,6 +31,7 @@ const authorsRouter = require('./routes/authors');
 const booksRouter = require('./routes/books');
 const usersRouter = require('./routes/users');
 const genresRouter = require('./routes/genres');
+const booksUsersRouter = require('./routes/books_users');
 
 const app = express();
 const port = 3000;
@@ -73,6 +74,7 @@ app.use('/authors', authorsRouter);
 app.use('/books', booksRouter);
 app.use('/users', usersRouter);
 app.use('/genres', genresRouter);
+app.use('/books_users', booksUsersRouter);
 
 // custom 404 page
 app.use((req, res) => {
