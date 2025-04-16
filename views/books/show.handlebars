@@ -30,4 +30,30 @@
 </div>
 {{/if}}
 
+<div>
+  <h2>Comments</h2>
+  <div>
+    {{#if currentUser}}
+      <form action="/comments/upsert" role="form" method="post">
+        <input type="hidden" name="_csrf" value="{{_csrfToken}}">
+        <input type="hidden" name="bookId" value="{{bookId}}">
+        <input type="hidden" name="userEmail" value="{{currentUser.email}}">
+        <div>
+          <textarea rows="5" id="comment" name="text">{{comment.text}}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">New comment</button>
+      </form>
+    {{/if}}
+    {{#each comments}}
+      <div>
+        <p>
+          {{this.text}}<br>
+          By {{this.userEmail}}
+          {{#if (eq @root.currentUser.email this.userEmail) }}
+          <br><a href="/comments/edit?id={{this.id}}">Edit</a>
+          {{/if}}
+      </div>
+    {{/each}}
+  </div>
+</div>
 
