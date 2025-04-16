@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const Genre = require('../models/genre');
 
-router.get('/', function(req, res, next) {
-  const genres = Genre.all;
+router.get('/', async (req, res, next) => {
+  const genres = await Genre.all();
   res.render('genres/index', { title: 'BookedIn || Genres', genres: genres });
 });
 
