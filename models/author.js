@@ -28,7 +28,6 @@ exports.get = async (id) => {
 }
 
 exports.update = async (author) => {
-  // authors[author.id] = author;
   return await db.getPool().query(
     "UPDATE authors SET first_name = $1, last_name = $2 where id = $3 RETURNING *",
     [author.firstName, author.lastName, author.id]
