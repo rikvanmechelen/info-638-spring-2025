@@ -3,10 +3,8 @@
 <form action="/comments/upsert" role="form" method="post">
   <input type="hidden" name="_csrf" value="{{_csrfToken}}">
   <input type="hidden" name="id" value="{{comment.id}}">
-  <input type="hidden" name="bookId" value="{{comment.bookId}}">
-  <input type="hidden" name="userEmail" value="{{comment.userEmail}}">
   <div>
-    <textarea rows="5" id="comment" name="text">{{comment.text}}</textarea>
+    <textarea rows="5" id="comment" name="comment">{{comment.comment}}</textarea>
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>

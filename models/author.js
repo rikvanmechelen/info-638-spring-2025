@@ -41,3 +41,11 @@ exports.upsert = async (author) => {
     exports.add(author);
   }
 }
+
+exports.allForBook = async (book) => {
+  const { rows } = await db.getPool().query(`
+    select authors.* from authors
+    JOIN authors_books on authors_books.author_id = authors.id
+    where authors_books.book_id = $1;`, [book.id]);
+  return db.camelize(rows);
+}

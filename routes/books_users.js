@@ -4,7 +4,7 @@ const BookUser = require('../models/book_user');
 
 router.post('/upsert', async (req, res, next) => {
   console.log('body: ' + JSON.stringify(req.body));
-  BookUser.upsert(req.body);
+  await BookUser.upsert(req.body);
   let createdOrupdated = req.body.id ? 'updated' : 'created';
   req.session.flash = {
     type: 'info',

@@ -7,7 +7,7 @@
 </p>
 {{#if genre}}
   <p>
-    genre: {{genre.genre}}
+    genre: {{genre.name}}
   </p>
 {{/if}}
 {{#if currentUser}}
@@ -15,14 +15,17 @@
   <form action="/books_users/upsert" role="form" method="post">
     <input type="hidden" name="_csrf" value="{{_csrfToken}}">
     <input type="hidden" name="bookId" value="{{bookId}}">
-    <input type="hidden" name="userEmail" value="{{currentUser.email}}">
+    <input type="hidden" name="userId" value="{{currentUser.id}}">
+    {{#if bookUser}}
+      <input type="hidden" name="id" value="{{bookUser.id}}">
+    {{/if}}
     <label for="status">Status</label>
     <select name="status" id="status">
-      {{#unless (and bookUser bookUser.status)}}
+      {{#unless (and bookUser bookUser.readStatus)}}
         <option disabled selected value>-- select status --</option>
       {{/unless}}
       {{#each statuses}}
-        <option value="{{this}}" {{#if (and @root.bookUser (eq @root.bookUser.status this))}}selected{{/if}}>{{this}}</option>
+        <option value="{{this}}" {{#if (and @root.bookUser (eq @root.bookUser.readStatus this))}}selected{{/if}}>{{this}}</option>
       {{/each}}
     </select>
     <button type="submit">Submit</button>
@@ -37,9 +40,9 @@
       <form action="/comments/upsert" role="form" method="post">
         <input type="hidden" name="_csrf" value="{{_csrfToken}}">
         <input type="hidden" name="bookId" value="{{bookId}}">
-        <input type="hidden" name="userEmail" value="{{currentUser.email}}">
+        <input type="hidden" name="userId" value="{{currentUser.id}}">
         <div>
-          <textarea rows="5" id="comment" name="text">{{comment.text}}</textarea>
+          <textarea rows="5" id="comment" name="comment">{{comment.comment}}</textarea>
         </div>
         <button type="submit" class="btn btn-primary">New comment</button>
       </form>
@@ -47,9 +50,9 @@
     {{#each comments}}
       <div>
         <p>
-          {{this.text}}<br>
+          {{this.comment}}<br>
           By {{this.userEmail}}
-          {{#if (eq @root.currentUser.email this.userEmail) }}
+          {{#if (eq @root.currentUser.id this.userId) }}
           <br><a href="/comments/edit?id={{this.id}}">Edit</a>
           {{/if}}
       </div>
